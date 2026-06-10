@@ -1,0 +1,44 @@
+.q-page{
+  background: linear-gradient(to bottom, #000000, #152331);
+}
+
+.degree{
+ top: -44px 
+}
+
+/* Céu de Dia Limpo */
+.bg-sunny {
+  background: linear-gradient(to bottom, #4a90e2, #50e3c2);
+}
+/* Céu de Noite Limpa */
+.bg-night {
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+}
+/* Céu Nublado / Chuva de Dia */
+.bg-cloudy {
+  background: linear-gradient(to bottom, #617ca0, #a0b5d0);
+}
+/* Tempestade / Trovoada */
+.bg-thunder {
+  background: linear-gradient(to bottom, #1f1c2c, #928dab);
+}
+
+/* Garante que o Lottie ocupe o fundo sem atrapalhar os cliques */
+.background-lottie {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.6; /* Deixa o efeito sutil como o da Apple */
+  pointer-events: none; /* Permite clicar nos botões da frente */
+}
+
+/* Coloca o conteúdo do seu app na frente da animação */
+.content-layer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
