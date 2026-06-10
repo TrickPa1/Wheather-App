@@ -1,0 +1,60 @@
+name: Build iOS (Trabalho Facul)
+
+on:
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Instalar Dependências do Projeto
+        run: npm ci
+
+      - name: Instalar CLI do Quasar
+        run: npm install -g @quasar/cli
+
+      - name: Build do Quasar (Apenas Web Assets)
+        run: quasar build -m capacitor -T ios --ide
+
+      - name: Sincronizar Capacitor e Gerar Pasta iOS
+        run: |
+          cd src-capacitor
+          npx cap sync ios
+
+      - name: Compilar App no Xcode (Suportando projeto moderno)
+        run: |
+          cd src-capacitor/ios/App
+          
+          # Ajustado para 'clean build' em minúsculo para a Apple não reclamar
+          if [ -d "App.xcworkspace" ]; then
+            echo "Compilando via Workspace (Legado)..."
+            xcodebuild -workspace App.xcworkspace -scheme App -configuration Release -sdk iphoneos CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" PROVISIONING_PROFILE="" SYMROOT=$(pwd)/build clean build
+          else
+            echo "Compilando via Project (Moderno)..."
+            xcodebuild -project App.xcodeproj -scheme App -configuration Release -sdk iphoneos CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" PROVISIONING_PROFILE="" SYMROOT=$(pwd)/build clean build
+          fi
+
+      - name: Empacotar em arquivo .IPA
+        run: |
+          cd src-capacitor/ios/App
+          mkdir Payload
+          mv build/Release-iphoneos/App.app Payload/
+          zip -r app-sem-assinatura.ipa Payload
+
+      - name: Upload do arquivo .IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-ios-faculdade
+          path: src-capacitor/ios/App/app-sem-assinatura.ipa
