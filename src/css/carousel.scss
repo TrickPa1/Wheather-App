@@ -1,0 +1,62 @@
+/* Linha sutil separando o resumo do carrossel */
+.border-bottom-dim {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+/* Esconde a barra de scroll nativa*/
+.custom-scroll {
+  scrollbar-width: none;
+}
+.custom-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.q-carousel__slide {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; 
+}
+
+.full-page-carousel {
+  height: 100vh;
+}
+
+/* O contêiner em formato de cápsula escura */
+.ios-capsule-indicator {
+  background: rgba(21, 28, 43, 0.85); 
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 8px 16px;
+  border-radius: 30px; 
+  gap: 12px;          
+  border: 1px solid rgba(255, 255, 255, 0.06); 
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);  
+}
+
+/* Base para todos os itens de dentro da cápsula */
+.indicator-item {
+  transition: all 0.25s ease-in-out;
+}
+
+/* Estilização dos Pontos (Vento e Previsão) */
+.indicator-item.dot {
+  width: 7px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.35); /* Cor opaca para os inativos */
+  border-radius: 50%;
+}
+.indicator-item.dot.active {
+  background: #ffffff; /* Branco brilhante quando ativo */
+  transform: scale(1.1);
+}
+
+/* Estilização da Seta de Localização (Home) */
+.indicator-item.arrow {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.35); /* Muted quando estás noutra página */
+}
+.indicator-item.arrow.active {
+  color: #ffffff; /* Seta branca brilhante quando estás na Home */
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}

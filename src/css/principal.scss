@@ -1,6 +1,5 @@
 .q-page{
   background: linear-gradient(to bottom, #000000, #152331);
-  padding-bottom: 20px;
 }
 
 .corpo{
@@ -19,7 +18,7 @@
   align-items: center;
   padding: 4px 4px 4px 18px; /* Margens internas para alinhar os ícones das pontas */
   transition: all 0.3s ease;
-  width: 90%;
+  width: 100%;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -83,7 +82,7 @@
   background: linear-gradient(to bottom, #1f1c2c, #928dab);
 }
 
-/* Lottie ocupe o fundo sem atrapalhar o clique */
+/* Lottie */
 .background-lottie {
   position: absolute;
   top: 0;
@@ -111,7 +110,7 @@
   border: 1px solid rgba(255, 255, 255, 0.13); 
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
   border-radius: 24px;               
-  max-width: 90%;
+  max-width: 100%;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -147,7 +146,8 @@
   border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.13);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-  width: 90%;
+  width: 100%;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -155,20 +155,6 @@
 /* Força os itens a ficarem lado a lado sem quebrar linha */
 .hourly-item {
   min-width: 65px; /* Garante um espaçamento confortável para cada hora */
-}
-
-/* Linha sutil separando o resumo do carrossel */
-.border-bottom-dim {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 8px;
-}
-
-/* Esconde a barra de scroll nativa para parecer um app nativo de iOS/Android */
-.custom-scroll {
-  scrollbar-width: none; /* Para Firefox */
-}
-.custom-scroll::-webkit-scrollbar {
-  display: none; /* Para Chrome, Safari e Edge */
 }
 
 //borda desfocada
@@ -191,3 +177,34 @@
   -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
   mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
 }
+
+.temp-bar-ios {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, #42a5f5, #ffca28);
+  border-radius: 10px;
+  margin: 0 10px;
+}
+
+.forecast-days-card {
+  background: rgba(25, 25, 25, 0.25);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+.daily-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.daily-row:last-child {
+  border-bottom: none;
+}
+
+.map-placeholder {
+  height: 70vh;
+  border-radius: 24px;
+  border: 2px dashed rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+

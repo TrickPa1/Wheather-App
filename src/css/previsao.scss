@@ -1,0 +1,37 @@
+/* Janela de resumo de amanhã (Card Superior) */
+.tomorrow-summary-card {
+  background: rgba(26, 33, 50, 0.75); /* Tom azul-escuro idêntico ao do print */
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Lista inferior dos próximos dias */
+.forecast-days-card {
+  background: rgba(21, 27, 41, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.daily-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.daily-row:last-child {
+  border-bottom: none;
+}
+
+.temp-bar-ios {
+  width: 75px;
+  height: 4px;
+  background: linear-gradient(to right, #64b5f6, #ffb74d);
+  border-radius: 10px;
+  margin: 0 12px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}

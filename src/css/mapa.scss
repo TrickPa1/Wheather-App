@@ -1,0 +1,26 @@
+
+.map-container {
+  height: 83vh; /* Ocupa a altura ideal do ecrã do telemóvel */
+  width: 100%;
+  border-radius: 28px; /* Mantém a identidade visual dos teus cartões */
+  overflow: hidden;    /* Obriga o iframe a respeitar os cantos arredondados */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(15, 23, 42, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Força o iframe a preencher o espaço interno do cartão */
+.windy-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Animação subtil para o ícone de vento no título */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.animate-pulse {
+  animation: pulse 2s infinite ease-in-out;
+}
