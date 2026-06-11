@@ -1,34 +1,45 @@
 <template>
   <q-page :class="['flex column relative-position overflow-hidden', className = classeFundo]">
-   <div class="col q-pt-lg q-px-md">
-    <q-input
-        v-model="search"
-        @keyup.enter="getWeatherBySearch"
-        placeholder="Search"
-        dark
-        borderless
-      >
-        <template v-slot:before>
-          <q-icon 
-            @click="getLocation"
-            name="fmd_good" 
-          />
-        </template>
+    
+    <!-- Barra de Pesquisa -->
+    <div class=" col">
+      <div class="search-wrapper shadow-custom q-mt-xl q-mx-auto">
+        <q-input
+          v-model="search"
+          @keyup.enter="getWeatherBySearch"
+          placeholder="Search"
+          borderless
+          dense
+          dark
+          class="search-input col"
+        >
+          <template v-slot:before>
+            <q-icon 
+              @click="getLocation"
+              name="fmd_good" 
+              class="location-icon cursor-pointer"
+            />
+          </template>
 
-        <template v-slot:append>
-          <q-btn
-            @click="getWeatherBySearch" 
-            round 
-            dense 
-            flat 
-            icon="search"
-          />
-        </template>
-      </q-input>
+          <template v-slot:append>
+            <q-btn
+              @click="getWeatherBySearch" 
+              round 
+              dense 
+              unelevated
+              icon="search"
+              class="search-button"
+            />
+          </template>
+        </q-input>
+     </div>
    </div>
 
+   <!-- Temperatura -->
    <template v-if="weatherData"> 
       <div class="col text-white text-center">
+
+        <!-- Animação do lottie-->
         <div style="max-width center: 300px; width: 100%;">
           <Vue3Lottie 
             :animationData="lottieSelecionado" 
@@ -38,15 +49,77 @@
             :autoPlay="true"
           />
         </div>
+
+        <!-- Nome da Cidade -->
         <div class="text-h4 text-weight-light">
           {{ weatherData.name }}
         </div>
+        <!-- Estado da Temperatura -->
         <div class="text-h6 text-weight-light">
           {{ weatherData.weather[0].main}}
         </div>
+
+        <!-- A temperatura-->
         <div class="text-h1 text-weight-thin q-my-lg relative-position">
           <span>{{ Math.round(weatherData.main.temp) }}</span>
           <span class="text-h4 relative-position degree">&deg;C</span>
+        </div>
+
+        <!-- os detalhes extra, malta velocidade, humidade e nuvens(muda de acordo as condições climaticas(chuva, neve, normal(somente a nuvem)))-->
+        <div class="weather-details-card row items-center justify-end q-py-md q-px-sm q-mt-lg">
+          
+          <!-- O vento-->
+          <div class="col text-center detail-column">
+            <q-icon name="air" size="28px" class="text-amber-5 text-shadow-subtle q-mb-xs" />
+            <div class="text-weight-bold text-body1">
+              {{ Math.round(weatherData.wind.speed * 3.6) }} <span class="text-caption text-weight-light">km/h</span>
+            </div>
+            <div class="text-caption text-grey-4 opacity-70">Vento</div>
+          </div>
+
+          <div class="vertical-divider"></div>
+          
+          <!-- humidade -->
+          <div class="col text-center detail-column">
+            <q-icon name="water_drop" size="28px" class="text-blue-4 text-shadow-subtle q-mb-xs" />
+            <div class="text-weight-bold text-body1">
+              {{ weatherData.main.humidity }}<span class="text-caption text-weight-light">%</span>
+            </div>
+            <div class="text-caption text-grey-4 opacity-70">Humidade</div>
+          </div>
+
+          <div class="vertical-divider"></div>
+          
+          <!-- Nuvens -->
+          <div class="col text-center detail-column">
+            
+            <!-- Para caso de chuva-->
+            <template v-if="weatherData.rain">
+              <q-icon name="umbrella" size="28px" class="text-blue-3 text-shadow-subtle q-mb-xs" />
+              <div class="text-weight-bold text-body1">
+                {{ weatherData.rain['1h'] || weatherData.rain['3h'] || 0 }}<span class="text-caption text-weight-light"> mm</span>
+              </div>
+              <div class="text-caption text-grey-4 opacity-70">Chuva</div>
+            </template>
+
+            <!-- Para caso de neve-->
+            <template v-else-if="weatherData.snow">
+              <q-icon name="ac_unit" size="28px" class="text-light-blue-2 text-shadow-subtle q-mb-xs" />
+              <div class="text-weight-bold text-body1">
+                {{ weatherData.snow['1h'] || weatherData.snow['3h'] || 0 }}<span class="text-caption text-weight-light"> mm</span>
+              </div>
+              <div class="text-caption text-grey-4 opacity-70">Neve</div>
+            </template>
+            
+            <!-- Para casos normais(sem chuva ou neve) -->
+            <template v-else>
+              <q-icon name="cloud" size="28px" class="text-grey-4 text-shadow-subtle q-mb-xs" />
+              <div class="text-weight-bold text-body1">
+                {{ weatherData.clouds ? weatherData.clouds.all : 0 }}<span class="text-caption text-weight-light">%</span>
+              </div>
+              <div class="text-caption text-grey-4 opacity-70">Nuvens</div>
+            </template>
+          </div>
         </div>
       </div>
    </template>

@@ -2,6 +2,55 @@
   background: linear-gradient(to bottom, #000000, #152331);
 }
 
+/* Barra de Pesquisa */
+.search-wrapper {
+  background-color: rgba(25, 25, 25, 0.25);
+  border-radius: 9999px; /* Formato de pílula perfeito */
+  display: flex;
+  align-items: center;
+  padding: 4px 4px 4px 18px; /* Margens internas para alinhar os ícones das pontas */
+  transition: all 0.3s ease;
+  width: 90%;
+}
+
+/* Texto digitado e placeholder */
+.search-input :deep(.q-field__native),
+.search-input :deep(.q-field__input) {
+  font-weight: 300; /* Texto fino idêntico ao da imagem */
+  font-size: 1.1rem;
+  color: #242120;
+}
+
+/* ícone de localização */
+.location-icon {
+  color: #fff;
+  font-size: 1.5rem;
+}
+.location-icon:hover {
+  color: #242120;
+}
+
+/*botão de lupa*/
+.search-button {
+  background-color: #fff !important; /* Grafite escuro do modelo */
+  color: #242120 !important;
+  width: 42px;
+  height: 42px;
+}
+
+/* Sombra suave e esfumaçada */
+.shadow-custom {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06), 
+              0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.search-input :deep(.q-field__before) {
+  padding-right: 8px;
+}
+.search-input :deep(.q-field__append) {
+  padding-left: 0;
+}
+
 .degree{
  top: -44px 
 }
@@ -23,7 +72,7 @@
   background: linear-gradient(to bottom, #1f1c2c, #928dab);
 }
 
-/* Garante que o Lottie ocupe o fundo sem atrapalhar os cliques */
+/* Lottie ocupe o fundo sem atrapalhar o clique */
 .background-lottie {
   position: absolute;
   top: 0;
@@ -31,14 +80,50 @@
   width: 100%;
   height: 100%;
   z-index: 1;
-  opacity: 0.6; /* Deixa o efeito sutil como o da Apple */
-  pointer-events: none; /* Permite clicar nos botões da frente */
+  opacity: 0.6;
+  pointer-events: none;
 }
 
-/* Coloca o conteúdo do seu app na frente da animação */
+/* Conteúdo do app na frente do fundo */
 .content-layer {
   position: relative;
   z-index: 2;
   width: 100%;
   height: 100%;
+}
+
+/* Container dos detalhes */
+.weather-details-card {
+  background: rgba(25, 25, 25, 0.25); 
+  backdrop-filter: blur(25px);        
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.13); 
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 24px;               
+  max-width: 90%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.3s ease; 
+}
+
+/* Divisórias Verticais Finas */
+.vertical-divider {
+  width: 1px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Ajustes de tipografia das colunas */
+.detail-column {
+  color: #ffffff;
+}
+
+.detail-column .text-body1 {
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.detail-column .text-caption {
+  font-size: 0.75rem;
 }

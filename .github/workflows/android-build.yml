@@ -1,0 +1,49 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ] # Corre automaticamente quando envia código para estas branches
+  workflow_dispatch: # Permite que corra o build manualmente pelo site do GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Configurar Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Instalar Dependências do Projeto (Raiz)
+        run: npm install
+
+      - name: Instalar Dependências do Capacitor
+        run: |
+          cd src-capacitor
+          npm install
+
+      - name: Compilar Projeto Quasar (Android)
+        run: npx quasar build -m capacitor -T android
+
+      - name: Compilar APK com Gradle
+        run: |
+          cd src-capacitor/android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Disponibilizar APK para Download
+        uses: actions/upload-artifact@v4
+        with:
+          name: aplicativo-weather-debug
+          path: src-capacitor/android/app/build/outputs/apk/debug/app-debug.apk
