@@ -2,7 +2,7 @@
   <q-page :class="['flex column relative-position overflow-hidden', className = classeFundo]">
     
     <!-- Barra de Pesquisa -->
-    <div class=" col">
+    <div class=" col fixed-top z-top q-mt-sm">
       <div class="search-wrapper shadow-custom q-mt-xl q-mx-auto">
         <q-input
           v-model="search"
@@ -37,7 +37,7 @@
 
    <!-- Temperatura -->
    <template v-if="weatherData"> 
-      <div class="col text-white text-center">
+      <div class="col text-white text-center corpo">
 
         <!-- Animação do lottie-->
         <div style="max-width center: 300px; width: 100%;">
@@ -66,7 +66,7 @@
         </div>
 
         <!-- os detalhes extra, malta velocidade, humidade e nuvens(muda de acordo as condições climaticas(chuva, neve, normal(somente a nuvem)))-->
-        <div class="weather-details-card row items-center justify-end q-py-md q-px-sm q-mt-lg">
+        <div class="weather-details-card row items-center justify-around q-py-md q-px-sm q-mt-lg">
           
           <!-- O vento-->
           <div class="col text-center detail-column">
@@ -121,10 +121,39 @@
             </template>
           </div>
         </div>
+
+        <!-- Revisoes em Horas -->
+        <div class="hourly-forecast-card q-pa-md q-mt-md">
+          <div class="row no-wrap overflow-auto custom-scroll q-pb-sm">
+            
+            <div 
+              v-for="(hora, index) in forecastData" 
+              :key="index" 
+              class="hourly-item flex column items-center q-px-sm"
+            >
+              <span class="text-caption text-weight-medium text-grey-3 text-nowrap text-center">
+                {{ index === 0 ? 'Agora' : formatarHora(hora.dt_txt) }}
+              </span>
+              
+              <q-img 
+                :src="getIconeLocal(hora.weather[0].icon)" 
+                style="width: 35px; height: 35px;" 
+                class="q-my-xs"
+                fit="contain"
+              />
+              
+              <span class="text-body1 text-weight-bold text-white">
+                {{ Math.round(hora.main.temp) }}&deg;
+              </span>
+            </div>
+          </div>
       </div>
+   </div>
    </template>
+
+   <!-- Tela Inicial -->
    <template v-else>
-    <div class="col column text-center text-white">
+    <div class="col column text-center text-white corpo2">
       <div class="col text-h2 text-weight-thin">
         Weather<br>App
       </div>
@@ -139,6 +168,7 @@
     </div>
    </template>  
   </q-page>
+  <div class="borda-desfocada"></div>
 </template>
 
 <script setup>
@@ -156,11 +186,13 @@ import RainyNightJson from 'src/assets/noite_chuvosa.json'
 // --- ESTADO REATIVO ---
 const search = ref('')
 const weatherData = ref(null)
+const forecastData = ref([])
 
 const lat = ref(null)
 const lon = ref(null)
 
 const apiUrl = 'https://api.openweathermap.org/data/2.5/weather'
+const apiUrlForecast = 'https://api.openweathermap.org/data/2.5/forecast'
 const apiKey = '8d87ded8c44d81d144c6b698ff62ea48'
 
 //animações do clima
@@ -231,6 +263,11 @@ const classeFundo = computed(() => {
   }
 })
 
+//icones 
+const getIconeLocal = (codigoIcone) => {
+  return new URL(`../assets/icones/${codigoIcone}.png`, import.meta.url).href
+}
+
 // --- MÉTODOS ---
 const getLocation = () => {
   navigator.geolocation.getCurrentPosition(
@@ -247,7 +284,6 @@ const getLocation = () => {
 }
 
 const getWeatherByCoords = () => {
-  // Usando o fetch nativo do navegador
   fetch(`${apiUrl}?lat=${lat.value}&lon=${lon.value}&appid=${apiKey}&units=metric`)
     .then(response => {
       if (!response.ok) throw new Error('Erro na requisição')
@@ -255,6 +291,7 @@ const getWeatherByCoords = () => {
     })
     .then(data => {
       weatherData.value = data
+      getHourlyForecast()
     })
     .catch(error => {
       console.error('Erro ao buscar clima:', error)
@@ -262,7 +299,6 @@ const getWeatherByCoords = () => {
 }
 
 const getWeatherBySearch = () => {
-  // Usando o fetch nativo do navegador
   fetch(`${apiUrl}?q=${search.value}&appid=${apiKey}&units=metric`)
     .then(response => {
       if (!response.ok) throw new Error('Erro na requisição')
@@ -270,10 +306,37 @@ const getWeatherBySearch = () => {
     })
     .then(data => {
       weatherData.value = data
+      getHourlyForecast(search.value)
     })
     .catch(error => {
       console.error('Erro ao buscar clima:', error)
     })
 }
+
+const getHourlyForecast = (cidade) => {
+  // Se for por coordenadas, altere a URL para lat/lon igual fez no getWeatherByCoords
+  const url = cidade 
+    ? `${apiUrlForecast}?q=${cidade}&appid=${apiKey}&units=metric`
+    : `${apiUrlForecast}?lat=${lat.value}&lon=${lon.value}&appid=${apiKey}&units=metric`
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      // A API gratuita retorna de 3 en 3 horas. Pegamos os 8 primeiros resultados (24 horas)
+      forecastData.value = data.list.slice(0, 8)
+    })
+    .catch(err => console.error("Erro ao buscar previsão horária:", err))
+}
+
+const formatarHora = (dataString) => {
+  if (!dataString) return ''
+  const data = new Date(dataString)
+  let horas = data.getHours()
+  const ampm = horas >= 12 ? 'PM' : 'AM'
+  horas = horas % 12
+  horas = horas ? horas : 12 // O número 0 deve ser virar 12
+  return `${horas} ${ampm}`
+}
+
 </script>
 
