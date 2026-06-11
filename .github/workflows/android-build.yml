@@ -32,9 +32,12 @@ jobs:
         run: |
           cd src-capacitor
           npm install
+      
+      - name: Dar permissão de execução ao Gradle 
+        run: chmod +x src-capacitor/android/gradlew
 
-      - name: Compilar Projeto Quasar (Android)
-        run: npx quasar build -m capacitor -T android
+      - name: Compilar Projeto Quasar (Apenas web e Sync)
+        run: npx quasar build -m capacitor -T android --skip-pkg
 
       - name: Compilar APK com Gradle
         run: |
