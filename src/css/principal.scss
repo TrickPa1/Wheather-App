@@ -10,7 +10,7 @@
   padding-top: 350px;
 }
 
-/* Barra de Pesquisa */
+// Barra de Pesquisa 
 .search-wrapper {
   background-color: rgba(25, 25, 25, 0.25);
   border-radius: 9999px; /* Formato de pílula perfeito */
@@ -23,15 +23,15 @@
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* Texto digitado e placeholder */
+// Texto digitado e placeholder 
 .search-input :deep(.q-field__native),
 .search-input :deep(.q-field__input) {
-  font-weight: 300; /* Texto fino idêntico ao da imagem */
+  font-weight: 300; 
   font-size: 1.1rem;
   color: #242120;
 }
 
-/* ícone de localização */
+// ícone de localização 
 .location-icon {
   color: #fff;
   font-size: 1.5rem;
@@ -40,7 +40,7 @@
   color: #242120;
 }
 
-/*botão de lupa*/
+//botão de lupa
 .search-button {
   background-color: #fff !important; /* Grafite escuro do modelo */
   color: #242120 !important;
@@ -48,7 +48,7 @@
   height: 42px;
 }
 
-/* Sombra suave e esfumaçada */
+// Sombra suave e esfumaçada 
 .shadow-custom {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06), 
               0 4px 12px rgba(0, 0, 0, 0.03);
@@ -65,24 +65,24 @@
  top: -44px 
 }
 
-/* Céu de Dia Limpo */
+// Céu de Dia Limpo 
 .bg-sunny {
   background: linear-gradient(to bottom, #4a90e2, #50e3c2);
 }
-/* Céu de Noite Limpa */
+// Céu de Noite Limpa 
 .bg-night {
   background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
 }
-/* Céu Nublado / Chuva de Dia */
+// Céu Nublado / Chuva de Dia 
 .bg-cloudy {
   background: linear-gradient(to bottom, #617ca0, #a0b5d0);
 }
-/* Tempestade / Trovoada */
+// Tempestade / Trovoada 
 .bg-thunder {
   background: linear-gradient(to bottom, #1f1c2c, #928dab);
 }
 
-/* Lottie */
+// Lottie 
 .background-lottie {
   position: absolute;
   top: 0;
@@ -94,7 +94,7 @@
   pointer-events: none;
 }
 
-/* Conteúdo do app na frente do fundo */
+// Conteúdo do app na frente do fundo 
 .content-layer {
   position: relative;
   z-index: 2;
@@ -102,7 +102,7 @@
   height: 100%;
 }
 
-/* Container dos detalhes */
+// Container dos detalhes
 .weather-details-card {
   background: rgba(25, 25, 25, 0.25); 
   backdrop-filter: blur(25px);        
@@ -117,14 +117,14 @@
   transition: all 0.3s ease; 
 }
 
-/* Divisórias Verticais Finas */
+// Divisórias Verticais Finas 
 .vertical-divider {
   width: 1px;
   height: 35px;
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* Ajustes de tipografia das colunas */
+// Ajustes de tipografia das colunas 
 .detail-column {
   color: #ffffff;
 }
@@ -138,7 +138,7 @@
   font-size: 0.75rem;
 }
 
-/* Card Principal da Previsão */
+// Card Principal da Previsão 
 .hourly-forecast-card {
   background: rgba(25, 25, 25, 0.25);
   backdrop-filter: blur(25px);
@@ -152,9 +152,9 @@
   margin-right: auto;
 }
 
-/* Força os itens a ficarem lado a lado sem quebrar linha */
+// Força os itens a ficarem lado a lado sem quebrar linha 
 .hourly-item {
-  min-width: 65px; /* Garante um espaçamento confortável para cada hora */
+  min-width: 65px; 
 }
 
 //borda desfocada
@@ -208,3 +208,15 @@
   backdrop-filter: blur(10px);
 }
 
+// Desativa a seleção de texto e o pop-up de copiar/colar em toda a app */
+body, * {
+  -webkit-touch-callout: none; 
+  -webkit-user-select: none;   
+  user-select: none;          
+}
+
+//Permite a seleção e o colar APENAS nos campos de input e caixas de texto 
+input, textarea, [contenteditable="true"], .q-field__native {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+}

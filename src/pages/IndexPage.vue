@@ -289,11 +289,9 @@
         
       </div>
     </div>
-    
-    <!-- Efeito para borda desfocada -->
-    <div class="borda-desfocada"></div>
-
   </q-page>
+  <!-- Efeito para borda desfocada -->
+    <div class="borda-desfocada"></div>
 </template>
 
 <script setup>
