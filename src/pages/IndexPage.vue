@@ -200,7 +200,7 @@
       </q-carousel-slide>
 
       <!-- Carousel de Previsao detalhada-->
-      <q-carousel-slide name="previsao" class="q-pa-md text-white container-scroll-vertical">
+      <q-carousel-slide name="previsao" class="q-pa-md text-white position fixed">
         
         <div class="text-h5 text-weight-bold q-mt-xl q-mb-md flex items-center q-gutter-sm">
           <q-icon name="equalizer" class="text-blue-4" />
@@ -588,6 +588,7 @@ const previsaoDiaria = computed(() => {
     }
   }).slice(1, 6) // Pega os 5 dias seguintes
 })
+
 
 </script>
 
